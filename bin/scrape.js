@@ -7,6 +7,7 @@ var restaurants = ['aallokko', 'alvari', 'cafe-libri', 'lozzi',
 var apiPrefix = 'api';
 var baseUrl = 'http://www.sonaatti.fi/';
 
+var fs = require('fs');
 var restify = require('restify');
 var io = require('node.io');
 var funkit = require('funkit');
@@ -19,8 +20,8 @@ program.
     version(VERSION).
     option('-o --output <output>', 'output file, if not provided uses stdout').
     option('-s --serve', 'serve API').
-    option('-p --port', 'server port').
-    option('-r --restaurant', 'pick one of these: ' + restaurants.join(', ')).
+    option('-p --port <port>', 'server port').
+    option('-r --restaurant <restaurant>', 'pick one of these: ' + restaurants.join(', ')).
     option('--silent', 'silent if file output is used').
     parse(process.argv);
 
@@ -31,7 +32,19 @@ main(program);
 function main(p) {
     console.log('sonaatti-scraper ' + VERSION + '\n');
 
+    var out = p.silent? funkit.id: function(o) {console.log(o);};
+
     if(p.serve) return serve(p.port);
+
+    if(!p.restaurant) return console.log('no restaurant selected!');
+    var ri = restaurants.indexOf(p.restaurant);
+
+    if(ri < 0) return console.log('invalid restaurant name!');
+
+    var restaurant = restaurants[ri];
+
+    if(p.output) scraper.foodToday(baseUrl + restaurant,
+        funkit.partial(writeJSON, p.output, out));
 }
 
 function writeJSON(filename, out, data) {
