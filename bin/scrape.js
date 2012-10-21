@@ -27,24 +27,28 @@ program.
 
 main(program);
 
-//scraper.foodToday(baseUrl + 'piato', function(d) {console.log(d);});
-
 function main(p) {
     console.log('sonaatti-scraper ' + VERSION + '\n');
 
-    var out = p.silent? funkit.id: function(o) {console.log(o);};
+    var out = p.silent? funkit.id: log;
 
     if(p.serve) return serve(p.port);
 
-    if(!p.restaurant) return console.log('no restaurant selected!');
+    if(!p.restaurant) return log('no restaurant selected!');
     var ri = restaurants.indexOf(p.restaurant);
 
     if(ri < 0) return console.log('invalid restaurant name!');
 
     var restaurant = restaurants[ri];
 
-    if(p.output) scraper.foodToday(baseUrl + restaurant,
-        funkit.partial(writeJSON, p.output, out));
+    scraper.foodToday(baseUrl + restaurant,
+        p.output? funkit.partial(writeJSON, p.output, out): log
+    );
+}
+
+// TODO: to funkit?
+function log(o) {
+    console.log(o);
 }
 
 function writeJSON(filename, out, data) {
