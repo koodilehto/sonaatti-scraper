@@ -5,7 +5,7 @@ Scrapes food data from http://www.sonaatti.fi . This data may either be outputte
 ## Usage
 
 1. sudo npm install
-2. bin/scraper -h
+2. bin/scrape -h
 
 ## License
 
