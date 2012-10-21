@@ -13,7 +13,8 @@
     "dependencies": {
         "node.io": "== 0.4.12",
         "funkit": "== 0.4.6",
-        "restify": "== 1.4.4"
+        "restify": "== 1.4.4",
+        "commander": "== 1.0.5"
     },
 
     "repository": {
