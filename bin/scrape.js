@@ -9,6 +9,8 @@ var baseUrl = 'http://www.sonaatti.fi/';
 
 var restify = require('restify');
 var io = require('node.io');
+var funkit = require('funkit');
+
 var scraper = require('../lib/scraper');
 
 var program = require('commander');
@@ -27,25 +29,45 @@ main(program);
 //scraper.foodToday(baseUrl + 'piato', function(d) {console.log(d);});
 
 function main(p) {
-    console.log(p);
+    console.log('sonaatti-scraper ' + VERSION + '\n');
+
+    if(p.serve) return serve(p.port);
 }
 
-function serve() {
-    function respond(req, res, next) {
-        res.send(foodToday());
-    }
+function writeJSON(filename, out, data) {
+    var f = filename + '.json';
+    data = funkit.concat(data).filter(funkit.id);
+
+    fs.writeFile(f, JSON.stringify(data, null, 4), function(e) {
+        if(e) throw e;
+
+        out('JSON saved to ' + f);
+    });
+}
+
+function serve(port) {
+    port = port || 8000;
 
     var server = restify.createServer();
+    var apiRoot = '/' + apiPrefix + '/';
+
+    server.get('/', help);
+    server.get(apiRoot, help);
+
+    function help(req, res) {
+        res.send('Try ' + apiRoot + '<' + restaurants.join('|') + '>/today');
+    }
+
     restaurants.forEach(function(restaurant) {
-        server.get('/' + apiPrefix + '/' + restaurant + '/today', function(req, res) {
-            foodToday(baseUrl + restaurant, function(data) {
-                res.send(data);
+        server.get(apiRoot + restaurant + '/today', function(req, res) {
+            scraper.foodToday(baseUrl + restaurant, function(d) {
+                res.send(d);
             });
         });
         // TODO: specific days
     });
 
-    server.listen(8000, function() {
+    server.listen(port, function() {
         console.log('%s listening at %s', server.name, server.url);
-    }); 
+    });
 }
