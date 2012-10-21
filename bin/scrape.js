@@ -30,11 +30,11 @@ main(program);
 function main(p) {
     console.log('sonaatti-scraper ' + VERSION + '\n');
 
-    var out = p.silent? funkit.id: log;
+    var out = p.silent? funkit.id: console.log;
 
     if(p.serve) return serve(p.port);
 
-    if(!p.restaurant) return log('no restaurant selected!');
+    if(!p.restaurant) return console.log('no restaurant selected!');
     var ri = restaurants.indexOf(p.restaurant);
 
     if(ri < 0) return console.log('invalid restaurant name!');
@@ -42,13 +42,8 @@ function main(p) {
     var restaurant = restaurants[ri];
 
     scraper.foodToday(baseUrl + restaurant,
-        p.output? funkit.partial(writeJSON, p.output, out): log
+        p.output? funkit.partial(writeJSON, p.output, out): console.log
     );
-}
-
-// TODO: to funkit?
-function log(o) {
-    console.log(o);
 }
 
 function writeJSON(filename, out, data) {
