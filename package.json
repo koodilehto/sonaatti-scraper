@@ -1,0 +1,31 @@
+{
+    "name": "sonaatti-scraper",
+    "private": true,
+    "description": "Sonaatti scraper",
+    "author": "Juho Vepsalainen <bebraw@gmail.com>",
+    "version": "0.1.0",
+
+    "engines": {
+        "node": "0.8.x",
+        "npm": "1.x"
+    },
+
+    "dependencies": {
+        "node.io": "== 0.4.12",
+        "funkit": "== 0.4.6",
+        "restify": "== 1.4.4"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "git@github.com/bebraw/sonaatti-scraper.git"
+    },
+
+    "homepage": "https://github.com/bebraw/sonaatti-scraper",
+
+    "bugs": {
+        "url": "https://github.com/bebraw/sonaatti-scraper/issues"
+    },
+
+    "keywords": ["scraping"]
+}
