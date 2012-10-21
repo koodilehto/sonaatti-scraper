@@ -19,13 +19,13 @@
 
     "repository": {
         "type": "git",
-        "url": "git@github.com/bebraw/sonaatti-scraper.git"
+        "url": "git@github.com/koodilehto/sonaatti-scraper.git"
     },
 
-    "homepage": "https://github.com/bebraw/sonaatti-scraper",
+    "homepage": "https://github.com/koodilehto/sonaatti-scraper",
 
     "bugs": {
-        "url": "https://github.com/bebraw/sonaatti-scraper/issues"
+        "url": "https://github.com/koodilehto/sonaatti-scraper/issues"
     },
 
     "keywords": ["scraping"]

@@ -9,5 +9,5 @@ Scrapes food data from http://www.sonaatti.fi . This data may either be outputte
 
 ## License
 
-sonaatti-scraper is available under MIT. See LICENSE for more details.
+sonaatti-scraper is available under MIT. See [LICENSE](https://github.com/koodilehto/sonaatti-scraper/blob/master/LICENSE) for more details.
 
